@@ -5,7 +5,10 @@ script = [
     "sed -i.bak \"s/StatusEnum:/StatusEnum:\\n      description: status of this requisition/\" /tmp/gocardless-bankaccountdata-schema.yaml",
     "npx openapi-generator-cli generate -i /tmp/gocardless-bankaccountdata-schema.yaml -o packages/gocardless-bankaccountdata -g rust --package-name gocardless-bankaccountdata --additional-properties=bestFitInt",
     "sed -i.bak \"s/OpenAPI Generator team and contributors/Nixy <info@nixy.software>/\" packages/gocardless-bankaccountdata/Cargo.toml",
-    "sed -i.bak \"s/Securely access your user's bank account information for better lending, accounting, verification and financial management./Rust OpenAPI client for GoCardless Bank Account Data./\" packages/gocardless-bankaccountdata/Cargo.toml",
+    "sed -i.bak \"s/Securely access your user's bank account information for better lending, accounting, verification and financial management./Rust OpenAPI client for GoCardless Bank Account Data.\"/ packages/gocardless-bankaccountdata/Cargo.toml",
+    "sed -i.bak \"s/edition = \\\"2021\\\"/edition = \\\"2021\\\"\\nrepository.workspace = true/\" packages/gocardless-bankaccountdata/Cargo.toml",
     "rm -f packages/gocardless-bankaccountdata/{.gitignore,.travis.yml,Cargo.toml.bak,git_push.sh}",
+    "npx prettier --write .",
+    "cargo fmt",
 ]
 workspace = false
