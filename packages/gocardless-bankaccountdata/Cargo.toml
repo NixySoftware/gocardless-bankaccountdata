@@ -5,6 +5,7 @@ authors = ["Nixy <info@nixy.software>"]
 description = "Rust OpenAPI client for GoCardless Bank Account Data."
 license = "MIT"
 edition = "2021"
+repository.workspace = true
 
 [dependencies]
 serde = { version = "^1.0", features = ["derive"] }
