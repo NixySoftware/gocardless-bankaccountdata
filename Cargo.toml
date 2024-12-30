@@ -1,0 +1,10 @@
+[workspace]
+members = ["packages/*"]
+resolver = "2"
+
+[workspace.package]
+authors = ["Nixy <info@nixy.software>"]
+edition = "2021"
+repository = "https://github.com/NixySoftware/gocardless-bankaccountdata"
+
+[workspace.dependencies]

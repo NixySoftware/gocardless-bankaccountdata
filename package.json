@@ -1,0 +1,16 @@
+{
+    "name": "@nixysoftware/gocardless-bankaccountdata",
+    "description": "Rust OpenAPI client for GoCardless Bank Account Data.",
+    "author": "Nixy <info@nixy.software>",
+    "repository": "github:NixySoftware/gocardless-bankaccountdata",
+    "license": "MIT",
+    "private": true,
+    "scripts": {},
+    "devDependencies": {
+        "@openapitools/openapi-generator-cli": "^2.15.3",
+        "prettier": "^3.4.2"
+    },
+    "engines": {
+        "node": ">=22"
+    }
+}
