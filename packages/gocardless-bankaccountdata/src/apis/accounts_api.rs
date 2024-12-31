@@ -10,8 +10,273 @@
 
 use super::{configuration, Error};
 use crate::{apis::ResponseContent, models};
+use async_trait::async_trait;
 use reqwest;
 use serde::{Deserialize, Serialize};
+use std::sync::Arc;
+
+#[async_trait]
+pub trait AccountsApi: Send + Sync {
+    async fn retrieve_account_balances(
+        &self,
+        params: RetrieveAccountBalancesParams,
+    ) -> Result<models::AccountBalance, Error<RetrieveAccountBalancesError>>;
+    async fn retrieve_account_details(
+        &self,
+        params: RetrieveAccountDetailsParams,
+    ) -> Result<models::AccountDetail, Error<RetrieveAccountDetailsError>>;
+    async fn retrieve_account_metadata(
+        &self,
+        params: RetrieveAccountMetadataParams,
+    ) -> Result<models::Account, Error<RetrieveAccountMetadataError>>;
+    async fn retrieve_account_transactions(
+        &self,
+        params: RetrieveAccountTransactionsParams,
+    ) -> Result<models::AccountTransactions, Error<RetrieveAccountTransactionsError>>;
+}
+
+pub struct AccountsApiClient {
+    configuration: Arc<configuration::Configuration>,
+}
+
+impl AccountsApiClient {
+    pub fn new(configuration: Arc<configuration::Configuration>) -> Self {
+        Self { configuration }
+    }
+}
+
+/// struct for passing parameters to the method [`retrieve_account_balances`]
+#[derive(Clone, Debug)]
+#[cfg_attr(feature = "bon", derive(::bon::Builder))]
+pub struct RetrieveAccountBalancesParams {
+    pub id: String,
+}
+
+/// struct for passing parameters to the method [`retrieve_account_details`]
+#[derive(Clone, Debug)]
+#[cfg_attr(feature = "bon", derive(::bon::Builder))]
+pub struct RetrieveAccountDetailsParams {
+    pub id: String,
+}
+
+/// struct for passing parameters to the method [`retrieve_account_metadata`]
+#[derive(Clone, Debug)]
+#[cfg_attr(feature = "bon", derive(::bon::Builder))]
+pub struct RetrieveAccountMetadataParams {
+    pub id: String,
+}
+
+/// struct for passing parameters to the method [`retrieve_account_transactions`]
+#[derive(Clone, Debug)]
+#[cfg_attr(feature = "bon", derive(::bon::Builder))]
+pub struct RetrieveAccountTransactionsParams {
+    pub id: String,
+    pub date_from: Option<String>,
+    pub date_to: Option<String>,
+}
+
+#[async_trait]
+impl AccountsApi for AccountsApiClient {
+    /// Access account balances.  Balances will be returned in Berlin Group PSD2 format.
+    async fn retrieve_account_balances(
+        &self,
+        params: RetrieveAccountBalancesParams,
+    ) -> Result<models::AccountBalance, Error<RetrieveAccountBalancesError>> {
+        let RetrieveAccountBalancesParams { id } = params;
+
+        let local_var_configuration = &self.configuration;
+
+        let local_var_client = &local_var_configuration.client;
+
+        let local_var_uri_str = format!(
+            "{}/api/v2/accounts/{id}/balances/",
+            local_var_configuration.base_path,
+            id = crate::apis::urlencode(id)
+        );
+        let mut local_var_req_builder =
+            local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
+
+        if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+            local_var_req_builder = local_var_req_builder
+                .header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+        }
+        if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
+            local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+        };
+
+        let local_var_req = local_var_req_builder.build()?;
+        let local_var_resp = local_var_client.execute(local_var_req).await?;
+
+        let local_var_status = local_var_resp.status();
+        let local_var_content = local_var_resp.text().await?;
+
+        if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+            serde_json::from_str(&local_var_content).map_err(Error::from)
+        } else {
+            let local_var_entity: Option<RetrieveAccountBalancesError> =
+                serde_json::from_str(&local_var_content).ok();
+            let local_var_error = ResponseContent {
+                status: local_var_status,
+                content: local_var_content,
+                entity: local_var_entity,
+            };
+            Err(Error::ResponseError(local_var_error))
+        }
+    }
+
+    /// Access account details.  Account details will be returned in Berlin Group PSD2 format.
+    async fn retrieve_account_details(
+        &self,
+        params: RetrieveAccountDetailsParams,
+    ) -> Result<models::AccountDetail, Error<RetrieveAccountDetailsError>> {
+        let RetrieveAccountDetailsParams { id } = params;
+
+        let local_var_configuration = &self.configuration;
+
+        let local_var_client = &local_var_configuration.client;
+
+        let local_var_uri_str = format!(
+            "{}/api/v2/accounts/{id}/details/",
+            local_var_configuration.base_path,
+            id = crate::apis::urlencode(id)
+        );
+        let mut local_var_req_builder =
+            local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
+
+        if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+            local_var_req_builder = local_var_req_builder
+                .header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+        }
+        if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
+            local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+        };
+
+        let local_var_req = local_var_req_builder.build()?;
+        let local_var_resp = local_var_client.execute(local_var_req).await?;
+
+        let local_var_status = local_var_resp.status();
+        let local_var_content = local_var_resp.text().await?;
+
+        if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+            serde_json::from_str(&local_var_content).map_err(Error::from)
+        } else {
+            let local_var_entity: Option<RetrieveAccountDetailsError> =
+                serde_json::from_str(&local_var_content).ok();
+            let local_var_error = ResponseContent {
+                status: local_var_status,
+                content: local_var_content,
+                entity: local_var_entity,
+            };
+            Err(Error::ResponseError(local_var_error))
+        }
+    }
+
+    /// Access account metadata.  Information about the account record, such as the processing status and IBAN.  Account status is recalculated based on the error count in the latest req.
+    async fn retrieve_account_metadata(
+        &self,
+        params: RetrieveAccountMetadataParams,
+    ) -> Result<models::Account, Error<RetrieveAccountMetadataError>> {
+        let RetrieveAccountMetadataParams { id } = params;
+
+        let local_var_configuration = &self.configuration;
+
+        let local_var_client = &local_var_configuration.client;
+
+        let local_var_uri_str = format!(
+            "{}/api/v2/accounts/{id}/",
+            local_var_configuration.base_path,
+            id = crate::apis::urlencode(id)
+        );
+        let mut local_var_req_builder =
+            local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
+
+        if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+            local_var_req_builder = local_var_req_builder
+                .header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+        }
+        if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
+            local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+        };
+
+        let local_var_req = local_var_req_builder.build()?;
+        let local_var_resp = local_var_client.execute(local_var_req).await?;
+
+        let local_var_status = local_var_resp.status();
+        let local_var_content = local_var_resp.text().await?;
+
+        if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+            serde_json::from_str(&local_var_content).map_err(Error::from)
+        } else {
+            let local_var_entity: Option<RetrieveAccountMetadataError> =
+                serde_json::from_str(&local_var_content).ok();
+            let local_var_error = ResponseContent {
+                status: local_var_status,
+                content: local_var_content,
+                entity: local_var_entity,
+            };
+            Err(Error::ResponseError(local_var_error))
+        }
+    }
+
+    /// Access account transactions.  Transactions will be returned in Berlin Group PSD2 format.
+    async fn retrieve_account_transactions(
+        &self,
+        params: RetrieveAccountTransactionsParams,
+    ) -> Result<models::AccountTransactions, Error<RetrieveAccountTransactionsError>> {
+        let RetrieveAccountTransactionsParams {
+            id,
+            date_from,
+            date_to,
+        } = params;
+
+        let local_var_configuration = &self.configuration;
+
+        let local_var_client = &local_var_configuration.client;
+
+        let local_var_uri_str = format!(
+            "{}/api/v2/accounts/{id}/transactions/",
+            local_var_configuration.base_path,
+            id = crate::apis::urlencode(id)
+        );
+        let mut local_var_req_builder =
+            local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
+
+        if let Some(ref local_var_str) = date_from {
+            local_var_req_builder =
+                local_var_req_builder.query(&[("date_from", &local_var_str.to_string())]);
+        }
+        if let Some(ref local_var_str) = date_to {
+            local_var_req_builder =
+                local_var_req_builder.query(&[("date_to", &local_var_str.to_string())]);
+        }
+        if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+            local_var_req_builder = local_var_req_builder
+                .header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+        }
+        if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
+            local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+        };
+
+        let local_var_req = local_var_req_builder.build()?;
+        let local_var_resp = local_var_client.execute(local_var_req).await?;
+
+        let local_var_status = local_var_resp.status();
+        let local_var_content = local_var_resp.text().await?;
+
+        if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+            serde_json::from_str(&local_var_content).map_err(Error::from)
+        } else {
+            let local_var_entity: Option<RetrieveAccountTransactionsError> =
+                serde_json::from_str(&local_var_content).ok();
+            let local_var_error = ResponseContent {
+                status: local_var_status,
+                content: local_var_content,
+                entity: local_var_entity,
+            };
+            Err(Error::ResponseError(local_var_error))
+        }
+    }
+}
 
 /// struct for typed errors of method [`retrieve_account_balances`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -67,194 +332,4 @@ pub enum RetrieveAccountTransactionsError {
     Status409(models::ErrorResponse),
     Status503(models::ErrorResponse),
     UnknownValue(serde_json::Value),
-}
-
-/// Access account balances.  Balances will be returned in Berlin Group PSD2 format.
-pub async fn retrieve_account_balances(
-    configuration: &configuration::Configuration,
-    id: &str,
-) -> Result<models::AccountBalance, Error<RetrieveAccountBalancesError>> {
-    let local_var_configuration = configuration;
-
-    let local_var_client = &local_var_configuration.client;
-
-    let local_var_uri_str = format!(
-        "{}/api/v2/accounts/{id}/balances/",
-        local_var_configuration.base_path,
-        id = crate::apis::urlencode(id)
-    );
-    let mut local_var_req_builder =
-        local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
-
-    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
-        local_var_req_builder =
-            local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
-    }
-    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
-        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
-    };
-
-    let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
-
-    let local_var_status = local_var_resp.status();
-    let local_var_content = local_var_resp.text().await?;
-
-    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
-    } else {
-        let local_var_entity: Option<RetrieveAccountBalancesError> =
-            serde_json::from_str(&local_var_content).ok();
-        let local_var_error = ResponseContent {
-            status: local_var_status,
-            content: local_var_content,
-            entity: local_var_entity,
-        };
-        Err(Error::ResponseError(local_var_error))
-    }
-}
-
-/// Access account details.  Account details will be returned in Berlin Group PSD2 format.
-pub async fn retrieve_account_details(
-    configuration: &configuration::Configuration,
-    id: &str,
-) -> Result<models::AccountDetail, Error<RetrieveAccountDetailsError>> {
-    let local_var_configuration = configuration;
-
-    let local_var_client = &local_var_configuration.client;
-
-    let local_var_uri_str = format!(
-        "{}/api/v2/accounts/{id}/details/",
-        local_var_configuration.base_path,
-        id = crate::apis::urlencode(id)
-    );
-    let mut local_var_req_builder =
-        local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
-
-    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
-        local_var_req_builder =
-            local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
-    }
-    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
-        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
-    };
-
-    let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
-
-    let local_var_status = local_var_resp.status();
-    let local_var_content = local_var_resp.text().await?;
-
-    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
-    } else {
-        let local_var_entity: Option<RetrieveAccountDetailsError> =
-            serde_json::from_str(&local_var_content).ok();
-        let local_var_error = ResponseContent {
-            status: local_var_status,
-            content: local_var_content,
-            entity: local_var_entity,
-        };
-        Err(Error::ResponseError(local_var_error))
-    }
-}
-
-/// Access account metadata.  Information about the account record, such as the processing status and IBAN.  Account status is recalculated based on the error count in the latest req.
-pub async fn retrieve_account_metadata(
-    configuration: &configuration::Configuration,
-    id: &str,
-) -> Result<models::Account, Error<RetrieveAccountMetadataError>> {
-    let local_var_configuration = configuration;
-
-    let local_var_client = &local_var_configuration.client;
-
-    let local_var_uri_str = format!(
-        "{}/api/v2/accounts/{id}/",
-        local_var_configuration.base_path,
-        id = crate::apis::urlencode(id)
-    );
-    let mut local_var_req_builder =
-        local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
-
-    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
-        local_var_req_builder =
-            local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
-    }
-    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
-        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
-    };
-
-    let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
-
-    let local_var_status = local_var_resp.status();
-    let local_var_content = local_var_resp.text().await?;
-
-    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
-    } else {
-        let local_var_entity: Option<RetrieveAccountMetadataError> =
-            serde_json::from_str(&local_var_content).ok();
-        let local_var_error = ResponseContent {
-            status: local_var_status,
-            content: local_var_content,
-            entity: local_var_entity,
-        };
-        Err(Error::ResponseError(local_var_error))
-    }
-}
-
-/// Access account transactions.  Transactions will be returned in Berlin Group PSD2 format.
-pub async fn retrieve_account_transactions(
-    configuration: &configuration::Configuration,
-    id: &str,
-    date_from: Option<String>,
-    date_to: Option<String>,
-) -> Result<models::AccountTransactions, Error<RetrieveAccountTransactionsError>> {
-    let local_var_configuration = configuration;
-
-    let local_var_client = &local_var_configuration.client;
-
-    let local_var_uri_str = format!(
-        "{}/api/v2/accounts/{id}/transactions/",
-        local_var_configuration.base_path,
-        id = crate::apis::urlencode(id)
-    );
-    let mut local_var_req_builder =
-        local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
-
-    if let Some(ref local_var_str) = date_from {
-        local_var_req_builder =
-            local_var_req_builder.query(&[("date_from", &local_var_str.to_string())]);
-    }
-    if let Some(ref local_var_str) = date_to {
-        local_var_req_builder =
-            local_var_req_builder.query(&[("date_to", &local_var_str.to_string())]);
-    }
-    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
-        local_var_req_builder =
-            local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
-    }
-    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
-        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
-    };
-
-    let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
-
-    let local_var_status = local_var_resp.status();
-    let local_var_content = local_var_resp.text().await?;
-
-    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
-    } else {
-        let local_var_entity: Option<RetrieveAccountTransactionsError> =
-            serde_json::from_str(&local_var_content).ok();
-        let local_var_error = ResponseContent {
-            status: local_var_status,
-            content: local_var_content,
-            entity: local_var_entity,
-        };
-        Err(Error::ResponseError(local_var_error))
-    }
 }

@@ -28,13 +28,13 @@ pub struct EndUserAgreement {
         rename = "max_historical_days",
         skip_serializing_if = "Option::is_none"
     )]
-    pub max_historical_days: Option<i32>,
+    pub max_historical_days: Option<i16>,
     /// Number of days from acceptance that the access can be used.
     #[serde(
         rename = "access_valid_for_days",
         skip_serializing_if = "Option::is_none"
     )]
-    pub access_valid_for_days: Option<i32>,
+    pub access_valid_for_days: Option<i16>,
     /// Array containing one or several values of ['balances', 'details', 'transactions']
     #[serde(rename = "access_scope", skip_serializing_if = "Option::is_none")]
     pub access_scope: Option<Vec<serde_json::Value>>,

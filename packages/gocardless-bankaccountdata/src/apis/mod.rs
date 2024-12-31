@@ -99,3 +99,57 @@ pub mod requisitions_api;
 pub mod token_api;
 
 pub mod configuration;
+
+use std::sync::Arc;
+
+pub trait Api {
+    fn accounts_api(&self) -> &dyn accounts_api::AccountsApi;
+    fn agreements_api(&self) -> &dyn agreements_api::AgreementsApi;
+    fn institutions_api(&self) -> &dyn institutions_api::InstitutionsApi;
+    fn requisitions_api(&self) -> &dyn requisitions_api::RequisitionsApi;
+    fn token_api(&self) -> &dyn token_api::TokenApi;
+}
+
+pub struct ApiClient {
+    accounts_api: Box<dyn accounts_api::AccountsApi>,
+    agreements_api: Box<dyn agreements_api::AgreementsApi>,
+    institutions_api: Box<dyn institutions_api::InstitutionsApi>,
+    requisitions_api: Box<dyn requisitions_api::RequisitionsApi>,
+    token_api: Box<dyn token_api::TokenApi>,
+}
+
+impl ApiClient {
+    pub fn new(configuration: Arc<configuration::Configuration>) -> Self {
+        Self {
+            accounts_api: Box::new(accounts_api::AccountsApiClient::new(configuration.clone())),
+            agreements_api: Box::new(agreements_api::AgreementsApiClient::new(
+                configuration.clone(),
+            )),
+            institutions_api: Box::new(institutions_api::InstitutionsApiClient::new(
+                configuration.clone(),
+            )),
+            requisitions_api: Box::new(requisitions_api::RequisitionsApiClient::new(
+                configuration.clone(),
+            )),
+            token_api: Box::new(token_api::TokenApiClient::new(configuration.clone())),
+        }
+    }
+}
+
+impl Api for ApiClient {
+    fn accounts_api(&self) -> &dyn accounts_api::AccountsApi {
+        self.accounts_api.as_ref()
+    }
+    fn agreements_api(&self) -> &dyn agreements_api::AgreementsApi {
+        self.agreements_api.as_ref()
+    }
+    fn institutions_api(&self) -> &dyn institutions_api::InstitutionsApi {
+        self.institutions_api.as_ref()
+    }
+    fn requisitions_api(&self) -> &dyn requisitions_api::RequisitionsApi {
+        self.requisitions_api.as_ref()
+    }
+    fn token_api(&self) -> &dyn token_api::TokenApi {
+        self.token_api.as_ref()
+    }
+}
