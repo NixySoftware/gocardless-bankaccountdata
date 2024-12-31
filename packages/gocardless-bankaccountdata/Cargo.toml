@@ -1,6 +1,6 @@
 [package]
 name = "gocardless-bankaccountdata"
-version = "2.0.0"
+version = "2.0.1"
 authors = ["Nixy <info@nixy.software>"]
 description = "Rust OpenAPI client for GoCardless Bank Account Data."
 license = "MIT"
