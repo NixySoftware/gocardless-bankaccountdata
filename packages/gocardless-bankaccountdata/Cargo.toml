@@ -16,6 +16,6 @@ url = "^2.5"
 uuid = { version = "^1.8", features = ["serde", "v4"] }
 async-trait = "^0.1"
 reqwest = { version = "^0.12", features = ["json", "multipart"] }
-bon = { version = "2.3", optional = true }
+bon = { version = "3.0", optional = true }
 [features]
 bon = ["dep:bon"]
