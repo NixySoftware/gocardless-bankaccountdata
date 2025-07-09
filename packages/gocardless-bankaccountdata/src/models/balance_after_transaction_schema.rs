@@ -11,20 +11,23 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// BalanceAmountSchema : BalanceAmountSchema.
+/// BalanceAfterTransactionSchema : BalanceAfterTransactionSchema.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct BalanceAmountSchema {
+pub struct BalanceAfterTransactionSchema {
     /// amount
     #[serde(rename = "amount")]
     pub amount: String,
     /// currency
-    #[serde(rename = "currency")]
-    pub currency: String,
+    #[serde(rename = "currency", skip_serializing_if = "Option::is_none")]
+    pub currency: Option<String>,
 }
 
-impl BalanceAmountSchema {
-    /// BalanceAmountSchema.
-    pub fn new(amount: String, currency: String) -> BalanceAmountSchema {
-        BalanceAmountSchema { amount, currency }
+impl BalanceAfterTransactionSchema {
+    /// BalanceAfterTransactionSchema.
+    pub fn new(amount: String) -> BalanceAfterTransactionSchema {
+        BalanceAfterTransactionSchema {
+            amount,
+            currency: None,
+        }
     }
 }

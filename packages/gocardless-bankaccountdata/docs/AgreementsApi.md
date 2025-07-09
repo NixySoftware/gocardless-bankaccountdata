@@ -2,13 +2,15 @@
 
 All URIs are relative to *https://bankaccountdata.gocardless.com*
 
-| Method                                                                                      | HTTP request                                    | Description |
-| ------------------------------------------------------------------------------------------- | ----------------------------------------------- | ----------- |
-| [**accept_eua**](AgreementsApi.md#accept_eua)                                               | **PUT** /api/v2/agreements/enduser/{id}/accept/ |
-| [**create_eua**](AgreementsApi.md#create_eua)                                               | **POST** /api/v2/agreements/enduser/            |
-| [**delete_eua_by_id**](AgreementsApi.md#delete_eua_by_id)                                   | **DELETE** /api/v2/agreements/enduser/{id}/     |
-| [**retrieve_all_euas_for_an_end_user**](AgreementsApi.md#retrieve_all_euas_for_an_end_user) | **GET** /api/v2/agreements/enduser/             |
-| [**retrieve_eua_by_id**](AgreementsApi.md#retrieve_eua_by_id)                               | **GET** /api/v2/agreements/enduser/{id}/        |
+| Method                                                                          | HTTP request                                        | Description |
+| ------------------------------------------------------------------------------- | --------------------------------------------------- | ----------- |
+| [**accept_eua**](AgreementsApi.md#accept_eua)                                   | **PUT** /api/v2/agreements/enduser/{id}/accept/     |
+| [**create_eua**](AgreementsApi.md#create_eua)                                   | **POST** /api/v2/agreements/enduser/                |
+| [**create_eua_reconfirmation**](AgreementsApi.md#create_eua_reconfirmation)     | **POST** /api/v2/agreements/enduser/{id}/reconfirm/ |
+| [**delete_eua_by_id**](AgreementsApi.md#delete_eua_by_id)                       | **DELETE** /api/v2/agreements/enduser/{id}/         |
+| [**retrieve_all_agreements**](AgreementsApi.md#retrieve_all_agreements)         | **GET** /api/v2/agreements/enduser/                 |
+| [**retrieve_eua_by_id**](AgreementsApi.md#retrieve_eua_by_id)                   | **GET** /api/v2/agreements/enduser/{id}/            |
+| [**retrieve_eua_reconfirmation**](AgreementsApi.md#retrieve_eua_reconfirmation) | **GET** /api/v2/agreements/enduser/{id}/reconfirm/  |
 
 ## accept_eua
 
@@ -65,9 +67,37 @@ API endpoints related to end-user agreements.
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+## create_eua_reconfirmation
+
+> models::ReconfirmationRetrieve create_eua_reconfirmation(id, reconfirmation_retrieve_request)
+
+Create EUA reconfirmation
+
+### Parameters
+
+| Name                                | Type                                                                          | Description                                        | Required   | Notes |
+| ----------------------------------- | ----------------------------------------------------------------------------- | -------------------------------------------------- | ---------- | ----- |
+| **id**                              | **uuid::Uuid**                                                                | A UUID string identifying this end user agreement. | [required] |
+| **reconfirmation_retrieve_request** | Option<[**ReconfirmationRetrieveRequest**](ReconfirmationRetrieveRequest.md)> |                                                    |            |
+
+### Return type
+
+[**models::ReconfirmationRetrieve**](ReconfirmationRetrieve.md)
+
+### Authorization
+
+[cookieAuth](../README.md#cookieAuth), [jwtAuth](../README.md#jwtAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json, application/x-www-form-urlencoded, multipart/form-data
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 ## delete_eua_by_id
 
-> delete_eua_by_id(id)
+> models::SuccessfulDeleteResponse delete_eua_by_id(id)
 
 Delete an end user agreement
 
@@ -79,7 +109,7 @@ Delete an end user agreement
 
 ### Return type
 
-(empty response body)
+[**models::SuccessfulDeleteResponse**](SuccessfulDeleteResponse.md)
 
 ### Authorization
 
@@ -92,11 +122,11 @@ Delete an end user agreement
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-## retrieve_all_euas_for_an_end_user
+## retrieve_all_agreements
 
-> models::PaginatedEndUserAgreementList retrieve_all_euas_for_an_end_user(limit, offset)
+> models::PaginatedEndUserAgreementList retrieve_all_agreements(limit, offset)
 
-Overwrite pagination to map CONN consent data with end user agreements. Args: request (HttpRequest): Request Returns: HttpResponse: Response
+Retrieve all End User Agreements belonging to the company
 
 ### Parameters
 
@@ -135,6 +165,33 @@ Retrieve end user agreement by ID
 ### Return type
 
 [**models::EndUserAgreement**](EndUserAgreement.md)
+
+### Authorization
+
+[cookieAuth](../README.md#cookieAuth), [jwtAuth](../README.md#jwtAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+## retrieve_eua_reconfirmation
+
+> models::ReconfirmationRetrieve retrieve_eua_reconfirmation(id)
+
+Retrieve EUA reconfirmation
+
+### Parameters
+
+| Name   | Type           | Description                                        | Required   | Notes |
+| ------ | -------------- | -------------------------------------------------- | ---------- | ----- |
+| **id** | **uuid::Uuid** | A UUID string identifying this end user agreement. | [required] |
+
+### Return type
+
+[**models::ReconfirmationRetrieve**](ReconfirmationRetrieve.md)
 
 ### Authorization
 

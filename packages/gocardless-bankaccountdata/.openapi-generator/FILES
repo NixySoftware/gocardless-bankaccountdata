@@ -7,7 +7,9 @@ docs/AccountDetail.md
 docs/AccountSchema.md
 docs/AccountTransactions.md
 docs/AccountsApi.md
+docs/AdditionalAccountDataSchema.md
 docs/AgreementsApi.md
+docs/BalanceAfterTransactionSchema.md
 docs/BalanceAmountSchema.md
 docs/BalanceSchema.md
 docs/BankTransaction.md
@@ -25,6 +27,8 @@ docs/JwtRefreshRequest.md
 docs/OwnerAddressStructuredSchema.md
 docs/PaginatedEndUserAgreementList.md
 docs/PaginatedRequisitionList.md
+docs/ReconfirmationRetrieve.md
+docs/ReconfirmationRetrieveRequest.md
 docs/Requisition.md
 docs/RequisitionRequest.md
 docs/RequisitionsApi.md
@@ -32,6 +36,7 @@ docs/SpectacularJwtObtain.md
 docs/SpectacularJwtRefresh.md
 docs/SpectacularRequisition.md
 docs/StatusEnum.md
+docs/SuccessfulDeleteResponse.md
 docs/TokenApi.md
 docs/TransactionAmountSchema.md
 docs/TransactionSchema.md
@@ -49,6 +54,8 @@ src/models/account_balance.rs
 src/models/account_detail.rs
 src/models/account_schema.rs
 src/models/account_transactions.rs
+src/models/additional_account_data_schema.rs
+src/models/balance_after_transaction_schema.rs
 src/models/balance_amount_schema.rs
 src/models/balance_schema.rs
 src/models/bank_transaction.rs
@@ -66,11 +73,14 @@ src/models/mod.rs
 src/models/owner_address_structured_schema.rs
 src/models/paginated_end_user_agreement_list.rs
 src/models/paginated_requisition_list.rs
+src/models/reconfirmation_retrieve.rs
+src/models/reconfirmation_retrieve_request.rs
 src/models/requisition.rs
 src/models/requisition_request.rs
 src/models/spectacular_jwt_obtain.rs
 src/models/spectacular_jwt_refresh.rs
 src/models/spectacular_requisition.rs
 src/models/status_enum.rs
+src/models/successful_delete_response.rs
 src/models/transaction_amount_schema.rs
 src/models/transaction_schema.rs

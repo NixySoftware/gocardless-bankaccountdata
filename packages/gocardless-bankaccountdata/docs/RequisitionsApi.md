@@ -38,7 +38,7 @@ Create a new requisition
 
 ## delete_requisition_by_id
 
-> delete_requisition_by_id(id)
+> models::SuccessfulDeleteResponse delete_requisition_by_id(id)
 
 Delete requisition and its end user agreement
 
@@ -50,7 +50,7 @@ Delete requisition and its end user agreement
 
 ### Return type
 
-(empty response body)
+[**models::SuccessfulDeleteResponse**](SuccessfulDeleteResponse.md)
 
 ### Authorization
 
