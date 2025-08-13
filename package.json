@@ -7,7 +7,7 @@
     "private": true,
     "scripts": {},
     "devDependencies": {
-        "@openapitools/openapi-generator-cli": "^2.20.2",
+        "@openapitools/openapi-generator-cli": "^2.22.0",
         "prettier": "^3.4.2"
     },
     "engines": {
