@@ -1,6 +1,6 @@
 # Rust GoCardless Bank Account Data
 
-Rust OpenAPI client for GoCardless Bank Account Data.
+Rust OpenAPI client for [GoCardless Bank Account Data](https://developer.gocardless.com/bank-account-data/overview).
 
 ## Installation
 

@@ -1,0 +1,10 @@
+[package]
+name = "scripts"
+publish = false
+
+authors.workspace = true
+edition.workspace = true
+repository.workspace = true
+
+[dependencies]
+toml_edit = "0.23.7"
