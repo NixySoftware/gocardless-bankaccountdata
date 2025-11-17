@@ -13,9 +13,12 @@ use serde::{Deserialize, Serialize};
 
 /// StatusEnum : status of this requisition
 /// status of this requisition
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+#[derive(
+    Clone, Copy, Debug, Default, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize,
+)]
 pub enum StatusEnum {
     #[serde(rename = "CR")]
+    #[default]
     Cr,
     #[serde(rename = "ID")]
     Id,
@@ -54,11 +57,5 @@ impl std::fmt::Display for StatusEnum {
             Self::Ga => write!(f, "GA"),
             Self::Sa => write!(f, "SA"),
         }
-    }
-}
-
-impl Default for StatusEnum {
-    fn default() -> StatusEnum {
-        Self::Cr
     }
 }
