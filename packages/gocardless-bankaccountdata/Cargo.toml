@@ -15,7 +15,7 @@ serde_repr = "^0.1"
 url = "^2.5"
 uuid = { version = "^1.8", features = ["serde", "v4"] }
 async-trait = "^0.1"
-reqwest = { version = "^0.12", features = ["json", "multipart"] }
+reqwest = { version = "^0.13.0", features = ["json", "multipart"] }
 reqwest-middleware = { version = "^0.4", features = ["json", "multipart"] }
 bon = { version = "^3.6", optional = true }
 [features]
