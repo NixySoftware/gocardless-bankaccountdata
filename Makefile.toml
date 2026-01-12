@@ -1,7 +1,7 @@
 [tasks.generate]
 script = [
     "curl https://bankaccountdata.gocardless.com/api/schema --create-dirs -o /tmp/gocardless-bankaccountdata-schema.yaml",
-    "sed -i.bak \"s/version: 2.0 (v2)/version: 2.0.6\\n  description: Securely access your user's bank account information for better lending, accounting, verification and financial management.\\n  contact:\\n    name: GoCardless\\n    url: https:\\/\\/gocardless.com\\/bank-account-data\\n  license:\\n    name: MIT\\nservers:\\n- url: https:\\/\\/bankaccountdata.gocardless.com/\" /tmp/gocardless-bankaccountdata-schema.yaml",
+    "sed -i.bak \"s/version: 2.0 (v2)/version: 2.0.7\\n  description: Securely access your user's bank account information for better lending, accounting, verification and financial management.\\n  contact:\\n    name: GoCardless\\n    url: https:\\/\\/gocardless.com\\/bank-account-data\\n  license:\\n    name: MIT\\nservers:\\n- url: https:\\/\\/bankaccountdata.gocardless.com/\" /tmp/gocardless-bankaccountdata-schema.yaml",
     "sed -i.bak \"s/StatusEnum:/StatusEnum:\\n      description: status of this requisition/\" /tmp/gocardless-bankaccountdata-schema.yaml",
     "npx openapi-generator-cli generate -i /tmp/gocardless-bankaccountdata-schema.yaml -o packages/gocardless-bankaccountdata -g rust --package-name gocardless-bankaccountdata --additional-properties=bestFitInt=true,library=reqwest-trait,supportMiddleware=true,topLevelApiClient=true,useBonBuilder=true,useSingleRequestParameter=true",
     "sed -i.bak \"s/OpenAPI Generator team and contributors/Nixy <info@nixy.software>/\" packages/gocardless-bankaccountdata/Cargo.toml",
