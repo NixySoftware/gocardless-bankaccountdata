@@ -1,0 +1,28 @@
+[graph]
+all-features = true
+
+[advisories]
+ignore = []
+
+[bans]
+allow-wildcard-paths = true
+multiple-versions = "allow"
+wildcards = "deny"
+
+[licenses]
+allow = [
+    "Apache-2.0",
+    "BSD-3-Clause",
+    "CDLA-Permissive-2.0",
+    "ISC",
+    "MIT",
+    "Unicode-3.0",
+]
+confidence-threshold = 1.0
+
+[licenses.private]
+ignore = true
+
+[sources]
+unknown-git = "deny"
+unknown-registry = "deny"

@@ -10,47 +10,17 @@ permissions:
     contents: read
 
 jobs:
-    lint:
-        name: Lint
-        runs-on: ubuntu-latest
+    commits:
+        name: Commits
+        uses: NixySoftware/.github/.github/workflows/commits.yml@473618d5365410901e83901c7d7066922a60ef4a # v0.3.1
 
-        env:
-            RUSTFLAGS: '-Dwarnings'
+    rust:
+        name: Rust
+        uses: NixySoftware/.github/.github/workflows/rust.yml@473618d5365410901e83901c7d7066922a60ef4a # v0.3.1
 
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v6
-
-            - name: Set up Rust toolchain
-              run: rustup toolchain install stable --no-self-update --profile default --target wasm32-unknown-unknown
-
-            - name: Set up Rust cache
-              uses: swatinem/rust-cache@v2
-              with:
-                  cache-on-failure: true
-                  save-if: ${{ github.ref == 'refs/heads/main' }}
-
-            - name: Check formatting
-              run: cargo fmt --all --check
-
-            - name: Lint
-              run: cargo clippy --all-features
-
-    test:
-        name: Test
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v6
-
-            - name: Set up Rust toolchain
-              run: rustup toolchain install stable --no-self-update --profile default --target wasm32-unknown-unknown
-
-            - name: Set up Rust cache
-              uses: swatinem/rust-cache@v2
-              with:
-                  cache-on-failure: true
-                  save-if: ${{ github.ref == 'refs/heads/main' }}
-
-            - name: Test
-              run: cargo test --all-features
+    typescript:
+        name: TypeScript
+        uses: NixySoftware/.github/.github/workflows/typescript.yml@473618d5365410901e83901c7d7066922a60ef4a # v0.3.1
+        with:
+            enable-lint: false
+            enable-test: false
