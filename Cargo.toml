@@ -1,10 +1,13 @@
 [workspace]
-members = ["packages/*"]
+members = ["packages/*", "scripts"]
 resolver = "2"
 
 [workspace.package]
 authors = ["Nixy <info@nixy.software>"]
+description = "OpenAPI client for GoCardless Bank Account Data."
 edition = "2024"
+license = "MIT"
 repository = "https://github.com/NixySoftware/gocardless-bankaccountdata"
+version = "2.0.7"
 
 [workspace.dependencies]

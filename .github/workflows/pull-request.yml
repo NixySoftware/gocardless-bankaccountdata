@@ -1,0 +1,13 @@
+name: Pull Request
+
+on:
+    pull_request:
+        types: [opened, synchronize, reopened, edited]
+
+permissions:
+    contents: read
+
+jobs:
+    pull-request:
+        name: Pull Request
+        uses: NixySoftware/.github/.github/workflows/commits.yml@9704b92a2cefe90342562266d127a0c9dd132640 # v0.2.0

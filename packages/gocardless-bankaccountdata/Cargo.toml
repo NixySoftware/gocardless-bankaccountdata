@@ -1,31 +1,27 @@
 [package]
 name = "gocardless-bankaccountdata"
-version = "2.0.7"
-authors = ["Nixy <info@nixy.software>"]
-description = "Rust OpenAPI client for GoCardless Bank Account Data."
-license = "MIT"
-edition = "2024"
-repository.workspace = true
 
-[dependencies]
-serde = { version = "^1.0", features = ["derive"] }
-serde_with = { version = "^3.8", default-features = false, features = [
-    "base64",
-    "std",
-    "macros",
-] }
-serde_json = "^1.0"
-serde_repr = "^0.1"
-url = "^2.5"
-uuid = { version = "^1.8", features = ["serde", "v4"] }
-async-trait = "^0.1"
-reqwest = { version = "^0.13.0", features = ["json", "multipart", "query"] }
-reqwest-middleware = { version = "^0.5", features = [
-    "json",
-    "multipart",
-    "query",
-] }
-bon = { version = "^3.6", optional = true }
+authors.workspace = true
+description.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+version.workspace = true
 
 [features]
+default = ["reqwest/default-tls"]
 bon = ["dep:bon"]
+native-tls = ["reqwest/native-tls"]
+rustls = ["reqwest/rustls"]
+
+[dependencies]
+async-trait = "^0.1"
+bon = { version = "^3.8", optional = true }
+reqwest = { version = "^0.13", features = ["json", "multipart"] }
+reqwest-middleware = { version = "^0.5", features = ["json", "multipart", "query"] }
+serde = { version = "^1.0", features = ["derive"] }
+serde_json = "^1.0"
+serde_repr = "^0.1"
+serde_with = { version = "^3.8", default-features = false, features = ["base64", "std", "macros"] }
+url = "^2.5"
+uuid = { version = "^1.8", features = ["serde", "v4"] }
