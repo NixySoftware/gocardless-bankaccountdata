@@ -11,7 +11,7 @@ permissions:
 jobs:
     publish:
         name: Publish
-        uses: NixySoftware/.github/.github/workflows/publish.yml@9704b92a2cefe90342562266d127a0c9dd132640 # v0.2.0
+        uses: NixySoftware/.github/.github/workflows/publish.yml@473618d5365410901e83901c7d7066922a60ef4a # v0.3.1
         with:
             enable-rust: true
             enable-typescript: false
