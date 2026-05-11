@@ -9,8 +9,8 @@
         "check:licenses": "license-checker-rseidelsohn --summary --onlyAllow '0BSD;Apache-2.0;BSD-2-Clause;BSD-3-Clause;BlueOak-1.0.0;CC-BY-3.0;CC0-1.0;ISC;MIT;Python-2.0'"
     },
     "devDependencies": {
-        "@commitlint/cli": "^20.5.3",
-        "@commitlint/config-conventional": "^20.5.3",
+        "@commitlint/cli": "^21.0.0",
+        "@commitlint/config-conventional": "^21.0.0",
         "@openapitools/openapi-generator-cli": "^2.31.1",
         "license-checker-rseidelsohn": "^4.4.2",
         "prettier": "^3.4.2"
