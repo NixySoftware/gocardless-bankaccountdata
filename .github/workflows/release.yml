@@ -18,7 +18,7 @@ permissions:
 jobs:
     release:
         name: Release
-        uses: NixySoftware/.github/.github/workflows/release.yml@69872c1a394b92973a42797e1bd19441722101bc # v0.5.0
+        uses: NixySoftware/.github/.github/workflows/release.yml@d2eab9162b8786a1cccdc33b4725f3045e119927 # v0.5.1
         with:
             bump: ${{ inputs.bump }}
             bump-rust: true
