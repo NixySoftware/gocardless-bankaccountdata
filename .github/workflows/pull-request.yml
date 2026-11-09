@@ -10,4 +10,4 @@ permissions:
 jobs:
     pull-request:
         name: Pull Request
-        uses: NixySoftware/.github/.github/workflows/pull-request.yml@54442bffc98f5fcf1c421dbe9353db4647881d94 # v0.6.1
+        uses: NixySoftware/.github/.github/workflows/pull-request.yml@ca99683dda0d3ad61cc6b0e447850ad0d7682e88 # v0.6.2
