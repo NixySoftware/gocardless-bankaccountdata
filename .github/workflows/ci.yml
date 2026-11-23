@@ -12,15 +12,15 @@ permissions:
 jobs:
     commits:
         name: Commits
-        uses: NixySoftware/.github/.github/workflows/commits.yml@ca99683dda0d3ad61cc6b0e447850ad0d7682e88 # v0.6.2
+        uses: NixySoftware/.github/.github/workflows/commits.yml@966bb0899f0114a793234c6a5decf98954880643 # v0.6.3
 
     rust:
         name: Rust
-        uses: NixySoftware/.github/.github/workflows/rust.yml@ca99683dda0d3ad61cc6b0e447850ad0d7682e88 # v0.6.2
+        uses: NixySoftware/.github/.github/workflows/rust.yml@966bb0899f0114a793234c6a5decf98954880643 # v0.6.3
 
     typescript:
         name: TypeScript
-        uses: NixySoftware/.github/.github/workflows/typescript.yml@ca99683dda0d3ad61cc6b0e447850ad0d7682e88 # v0.6.2
+        uses: NixySoftware/.github/.github/workflows/typescript.yml@966bb0899f0114a793234c6a5decf98954880643 # v0.6.3
         with:
             enable-lint: false
             enable-test: false
